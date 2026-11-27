@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const PATHS = ['/studie', '/account', '/personalia'];
+  const PATHS = ['/studie', '/account', '/personalia', '/school'];
 
   dctzqsd.register({
     name: 'portal',
