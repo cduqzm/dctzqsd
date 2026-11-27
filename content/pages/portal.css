@@ -1,4 +1,4 @@
-html.dctzqsd-portal :is(.card, .study-card, .now, .now--soft, .now--tomorrow) {
+html.dctzqsd-portal :is(.card, .container-card, .study-card, .now, .now--soft, .now--tomorrow) {
   border: 0;
   border-bottom: 1px solid var(--line);
   background: transparent;
