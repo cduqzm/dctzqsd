@@ -1,0 +1,49 @@
+html.dctzqsd-internship .stage-card {
+  max-width: 640px;
+  padding: 0 0 18px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+}
+
+html.dctzqsd-internship .stage-card-header h2 {
+  font-size: 24px;
+}
+
+html.dctzqsd-internship .stage-card-header .stage-card-header--title {
+  color: var(--text-bright);
+  font-family: var(--serif);
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 400;
+  text-decoration: none;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 280ms ease;
+}
+
+html.dctzqsd-internship .stage-card-header .stage-card-header--title:hover {
+  background-size: 100% 1px;
+}
+
+html.dctzqsd-internship .stage-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+  color: var(--text-dim);
+  font-size: 13px;
+  text-transform: lowercase;
+}
+
+html.dctzqsd-internship .stage-info--item:first-child {
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.dctzqsd-internship .stage-card-header--title {
+    transition: none;
+  }
+}

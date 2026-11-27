@@ -1,0 +1,92 @@
+html.dctzqsd-agenda:not(.dctzqsd-fallback) .agenda-list :is(.agenda-title, table) {
+  display: none !important;
+}
+
+html.dctzqsd-agenda.dctzqsd-fallback .agenda-list .agenda-title {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--text-bright);
+  text-transform: lowercase;
+}
+
+html.dctzqsd-agenda #dctzqsd-view {
+  grid-column: 1 / -1;
+  padding: 8px 0 72px;
+}
+
+html.dctzqsd-agenda #dctzqsd-view .dz-slot {
+  margin-left: 10px;
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+
+html.dctzqsd-agenda .agenda-filter {
+  border-bottom: 1px solid var(--line);
+  font: 13px/1.4 var(--mono);
+  text-transform: lowercase;
+}
+
+html.dctzqsd-agenda .agenda-filter :is(.btn, .popover-tabs ul a, label) {
+  border-color: transparent;
+  background-color: transparent;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: color 200ms ease, background-size 280ms ease;
+}
+
+html.dctzqsd-agenda .agenda-filter .popover-tabs ul a {
+  min-width: 0;
+}
+
+@media (hover: hover) {
+  html.dctzqsd-agenda .agenda-filter :is(.btn, .popover-tabs ul a, label):hover {
+    color: var(--text-bright);
+    background-color: transparent;
+    background-size: 100% 1px;
+  }
+}
+
+html.dctzqsd-agenda .agenda-filter .popover-tabs li.is-selected a {
+  color: var(--text-bright);
+  background-color: transparent;
+  background-size: 100% 1px;
+}
+
+html.dctzqsd-agenda .agenda-filter input[type="text"] {
+  border: 0;
+  border-bottom: 1px solid var(--link-border);
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  font: 13px/1.4 var(--mono);
+  box-shadow: none;
+  transition: border-color 200ms ease;
+}
+
+html.dctzqsd-agenda .agenda-filter input[type="text"]:focus {
+  border-bottom-color: var(--accent);
+  outline: none;
+}
+
+html.dctzqsd-agenda .agenda-filter .svg-sprites {
+  color: var(--text-dim);
+}
+
+html.dctzqsd-agenda .agenda-filter input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  html.dctzqsd-agenda .agenda-filter * {
+    transition: none !important;
+  }
+}

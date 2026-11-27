@@ -1,0 +1,9 @@
+html.dctzqsd-portal :is(.card, .study-card, .now, .now--soft, .now--tomorrow) {
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+}
+
+html.dctzqsd-portal .popover-tabs li.is-selected a {
+  box-shadow: inset 0 -1px 0 var(--accent);
+}

@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "dctzqsd",
+  "version": "0.1.0",
+  "description": "Restyles the Eduarte student portal in the cduqzm style. Only reads the page you have open.",
+  "permissions": ["storage"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "dctzqsd",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "toggle-view": {
+      "suggested_key": { "default": "Alt+Shift+E" },
+      "description": "Switch between dctzqsd and the original Eduarte view"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://summacollege-student.educus.nl/*"],
+      "css": [
+        "content/base.css",
+        "content/pages/agenda.css",
+        "content/pages/attendance.css",
+        "content/pages/results.css",
+        "content/pages/internship.css",
+        "content/pages/portal.css"
+      ],
+      "js": [
+        "content/core.js",
+        "content/pages/agenda.js",
+        "content/pages/attendance.js",
+        "content/pages/results.js",
+        "content/pages/internship.js",
+        "content/pages/portal.js",
+        "content/main.js"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}

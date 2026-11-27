@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>dctzqsd preview</title>
+
+  <link rel="stylesheet" href="../content/base.css">
+  <link rel="stylesheet" href="../content/pages/agenda.css">
+
+  <style>
+
+    body { margin: 0; font: 14px/1.5 'Segoe UI', Roboto, Arial, sans-serif; background: #f3f4f6; color: #222; }
+    .layout { display: flex; min-height: 100vh; }
+    .navigation--student { flex: 0 0 200px; padding: 20px 0; background: #233a63; }
+    .navigation--student a { display: block; padding: 10px 20px; color: #dbe4f3; text-decoration: none; }
+    .navigation--student a.active { background: #304d80; color: #fff; }
+    .main { flex: 1; min-width: 0; }
+    .header-toolbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+    .header-toolbar h1 { margin: 0; font-size: 20px; }
+    .content-wrapper { padding: 24px; }
+    .card { padding: 16px 20px; background: #fff; border: 1px solid #e3e6ea; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); }
+    .agenda-filter { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-bottom: 12px; border-bottom: 1px solid #eee; }
+    .btn { display: inline-block; padding: 6px 12px; border: 1px solid #2b6cb0; border-radius: 6px; background: #fff; color: #2b6cb0; font: inherit; text-decoration: none; cursor: pointer; }
+    .btn.active { background: #2b6cb0; color: #fff; }
+    .btn-group { display: inline-flex; margin-left: auto; }
+    .btn-group .btn { border-radius: 0; }
+    .form-control { padding: 6px 10px; border: 1px solid #ccd2da; border-radius: 6px; font: inherit; }
+    .agenda-title { margin: 16px 0 6px; color: #233a63; font-weight: 600; }
+    .table { width: 100%; border-collapse: collapse; }
+    .table td { padding: 6px 8px; border-top: 1px solid #f0f0f0; vertical-align: top; }
+    .clickable-row { cursor: pointer; }
+    .agenda-item div, .agenda-teacher { color: #889; font-size: 12px; }
+    .agenda-time span, .agenda-details span { display: block; }
+    .agenda-homework-icon i::before { content: 'HW'; color: #c05621; font: 600 11px sans-serif; }
+    #clicked { margin: 16px 0 0; color: #667; }
+
+    .dev-bar { position: fixed; right: 16px; bottom: 16px; z-index: 10; display: flex; gap: 16px; padding: 8px 12px; background: #000; border: 1px solid #333; color: #888; font: 12px/1.4 Consolas, monospace; }
+    .dev-bar button { all: unset; color: #ddd; cursor: pointer; }
+    .dev-bar button:hover { color: #fff; text-decoration: underline; }
+  </style>
+
+  <script>
+
+    (() => {
+      const store = { enabled: true };
+      const listeners = [];
+      window.chrome = window.chrome || {};
+      chrome.storage = {
+        local: {
+          get(defaults, callback) {
+            setTimeout(() => callback({ ...defaults, ...store }));
+          },
+          set(values) {
+            const changes = {};
+            for (const key of Object.keys(values)) {
+              changes[key] = { oldValue: store[key], newValue: values[key] };
+              store[key] = values[key];
+            }
+            listeners.forEach((listener) => listener(changes, 'local'));
+          },
+        },
+        onChanged: { addListener: (listener) => listeners.push(listener) },
+      };
+      chrome.runtime = { onMessage: { addListener() {} } };
+      window.toggleView = () => chrome.storage.local.set({ enabled: !store.enabled });
+    })();
+  </script>
+
+  <script src="../content/core.js"></script>
+  <script src="../content/pages/agenda.js"></script>
+  <script>dctzqsd.path = () => '/agenda'; </script>
+  <script src="../content/main.js"></script>
+</head>
+<body>
+  <div class="layout">
+    <nav class="navigation--student">
+      <a href="#">Home</a>
+      <a href="#" class="active">Agenda</a>
+      <a href="#">Aanwezigheid</a>
+      <a href="#">Resultaten</a>
+      <a href="#">Stage</a>
+    </nav>
+
+    <div class="main">
+      <div class="header-toolbar">
+        <h1>Agenda</h1>
+        <span>Student</span>
+      </div>
+
+      <div class="content-wrapper">
+        <div class="card">
+          <div class="agenda-filter">
+            <button type="button" class="btn" id="prev">‹</button>
+            <input type="text" class="form-control datepicker" id="date">
+            <button type="button" class="btn" id="next">›</button>
+            <div class="time-filter btn-group">
+              <a href="#" class="btn active">List</a>
+              <a href="#" class="btn">Workweek</a>
+              <a href="#" class="btn">Week</a>
+            </div>
+          </div>
+          <div class="agenda-list"></div>
+        </div>
+        <p id="clicked">click a lesson: Eduarte's own click handler reports it here</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dev-bar">
+    <span>preview</span>
+    <button type="button" onclick="toggleView()">switch view (alt+shift+e)</button>
+  </div>
+
+  <script>
+
+    const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    const TIMETABLE = [
+      [1, '8:30', '10:00', 'Nederlands', 'JANS', true],
+      [1, '10:00', '11:00', 'Mentoraat/studievaardigheden', 'MNTR'],
+      [1, '11:15', '12:45', 'Programmeren', 'KLMR', false, 'B1.23'],
+      [2, '9:00', '10:30', 'Engels', 'PVDB', true],
+      [2, '10:45', '12:15', 'Databases', 'HRSN'],
+      [2, '13:00', '14:00', 'Loopbaan en burgerschap', 'MEUL'],
+      [3, 'note', 'Studiedag: geen lessen'],
+      [4, '8:30', '10:00', 'Rekenen', 'DKKR'],
+      [4, '10:15', '11:45', 'Webdevelopment', 'KLMR', true, 'C0.12'],
+      [4, '12:30', '14:00', 'Engels', 'PVDB'],
+      [5, '9:00', '10:00', 'Mentoraat/studievaardigheden', 'MNTR'],
+      [5, '10:15', '12:15', 'Project', 'HRSN'],
+    ];
+
+    let weekOffset = 0;
+
+    const minutes = (time) => time.split(':').reduce((h, m) => h * 60 + Number(m));
+    const clock = (total) => `${Math.floor(total / 60)}:${String(total % 60).padStart(2, '0')}`;
+
+    function row(from, to, subject, teacher, homework, room) {
+      const slots = `${Math.round((minutes(from) - 480) / 15) + 1}-${Math.round((minutes(to) - 480) / 15)}`;
+      return `
+        <tr class="clickable-row">
+          <td class="agenda-item"><div>${slots}</div></td>
+          <td class="agenda-time"><span class="agenda-time top">${from}</span><span class="agenda-time bottom">${to}</span></td>
+          <td class="agenda-details"><span class="agenda-class">${subject}</span><span class="agenda-teacher">${teacher}</span>${room ? `<span class="agenda-location">${room}</span>` : ''}</td>
+          <td class="agenda-homework-icon">${homework ? '<i class="fa fa-book" title="Huiswerk"></i>' : ''}</td>
+        </tr>`;
+    }
+
+    function todaysRows() {
+      const now = new Date();
+      const t = Math.round((now.getHours() * 60 + now.getMinutes()) / 5) * 5;
+      return [
+        row(clock(t - 150), clock(t - 60), 'Nederlands', 'JANS'),
+        row(clock(t - 30), clock(t + 30), 'Mentoraat/studievaardigheden', 'MNTR', true),
+        row(clock(t + 45), clock(t + 105), 'Programmeren', 'KLMR', false, 'B1.23'),
+      ].join('');
+    }
+
+    function weekHtml(monday) {
+      let html = '';
+      for (let i = 0; i < 5; i++) {
+        const date = new Date(monday);
+        date.setDate(monday.getDate() + i);
+        const isToday = date.toDateString() === new Date().toDateString();
+        const entries = TIMETABLE.filter((entry) => entry[0] === i + 1);
+        const rows = isToday
+          ? todaysRows()
+          : entries.map((e) => (e[1] === 'note' ? `<tr><td colspan="4">${e[2]}</td></tr>` : row(...e.slice(1)))).join('');
+        html += `<div class="agenda-title">${DAY_NAMES[date.getDay()]} ${date.getDate()} ${MONTH_NAMES[date.getMonth()]}</div>`;
+        html += `<table class="table table-borderless"><tbody>${rows}</tbody></table>`;
+      }
+      return html;
+    }
+
+    function showWeek(offset) {
+      weekOffset = offset;
+      const monday = new Date();
+      monday.setHours(0, 0, 0, 0);
+      monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7) + offset * 7);
+
+      document.querySelector('.agenda-list').outerHTML = `<div class="agenda-list">${weekHtml(monday)}</div>`;
+      document.getElementById('date').value = monday.toLocaleDateString('nl-NL');
+    }
+
+    showWeek(0);
+    document.getElementById('prev').onclick = () => showWeek(weekOffset - 1);
+    document.getElementById('next').onclick = () => showWeek(weekOffset + 1);
+
+    document.addEventListener('click', (event) => {
+      const clicked = event.target.closest('tr.clickable-row');
+      if (!clicked) return;
+      const subject = clicked.querySelector('.agenda-class').textContent;
+      const time = clicked.querySelector('.agenda-time.top').textContent;
+      document.getElementById('clicked').textContent = `Eduarte got the click: ${subject}, ${time}`;
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.altKey && event.shiftKey && event.code === 'KeyE') toggleView();
+    });
+  </script>
+</body>
+</html>

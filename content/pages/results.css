@@ -1,0 +1,115 @@
+html.dctzqsd-results .filter {
+  text-transform: lowercase;
+}
+
+html.dctzqsd-results .filter label {
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+html.dctzqsd-results .container-card {
+  max-width: 760px;
+  border: 0;
+  background: transparent;
+}
+
+html.dctzqsd-results .container-card-header h2 {
+  color: var(--text-bright);
+  font-size: 24px;
+}
+
+html.dctzqsd-results .result-overview--table {
+  --bs-table-bg: transparent;
+  border: 0;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+html.dctzqsd-results .result-overview--grade .lozange,
+html.dctzqsd-results .result-overview--carousel li {
+  line-height: 1.4;
+}
+
+html.dctzqsd-results .result-overview--table td {
+  border-width: 0 0 1px;
+}
+
+html.dctzqsd-results .grade-structure--grade {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+html.dctzqsd-results .result-overview--table th {
+  color: var(--text-dim);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  border-bottom: 1px solid var(--line);
+}
+
+html.dctzqsd-results .result-overview--table td {
+  border-color: var(--line);
+  background: transparent;
+  vertical-align: middle;
+}
+
+html.dctzqsd-results .result-overview--course {
+  color: var(--text);
+  text-transform: lowercase;
+}
+
+html.dctzqsd-results .result-overview--grade .lozange {
+  min-width: 0;
+  padding: 2px 6px;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: background-size 280ms ease, color 200ms ease;
+}
+
+html.dctzqsd-results .result-overview--grade .lozange:hover {
+  color: var(--text-bright);
+  background-size: 100% 1px;
+}
+
+html.dctzqsd-results .result-overview--grade.is-negative .lozange {
+  color: var(--accent);
+}
+
+html.dctzqsd-results .result-overview--grade.is-average .lozange {
+  color: var(--text-bright);
+  font-size: 15px;
+}
+
+html.dctzqsd-results .result-overview--grade.is-average.is-negative .lozange {
+  color: var(--accent);
+}
+
+html.dctzqsd-results :is(.result-overview--carousel-prev, .result-overview--carousel-next) {
+  color: var(--text-dim);
+}
+
+html.dctzqsd-results :is(.result-overview--carousel-prev, .result-overview--carousel-next).inactive {
+  opacity: 0.25;
+}
+
+html.dctzqsd-results .poging-title {
+  color: var(--text-dim);
+  margin-right: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.dctzqsd-results .lozange {
+    transition: none;
+  }
+}

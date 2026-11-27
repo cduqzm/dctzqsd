@@ -1,0 +1,65 @@
+html.dctzqsd-attendance:not(.dctzqsd-fallback) :is(.presence-total-view, .student-absence, .chart--donut) {
+  display: none !important;
+}
+
+html.dctzqsd-attendance .week-header h2.is-header {
+  color: var(--text-bright);
+  font-size: 24px;
+  text-align: left;
+}
+
+html.dctzqsd-attendance .week-header h2.is-header .is-soft {
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-style: normal;
+  letter-spacing: 0.02em;
+}
+
+html.dctzqsd-attendance .dz-att {
+  padding: 4px 0 40px;
+}
+
+html.dctzqsd-attendance .dz-att .dz-totals {
+  max-width: 420px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+html.dctzqsd-attendance .dz-att .dz-totals li {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+html.dctzqsd-attendance .dz-att .dz-total-name {
+  color: var(--text);
+}
+
+html.dctzqsd-attendance .dz-att .dz-total-value {
+  color: var(--text-bright);
+}
+
+html.dctzqsd-attendance .dz-att .dz-alert,
+html.dctzqsd-attendance .dz-att .dz-alert :is(.dz-total-name, .dz-total-value) {
+  color: var(--accent);
+}
+
+html.dctzqsd-attendance .dz-att .dz-figure {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 4px 0 10px;
+}
+
+html.dctzqsd-attendance .dz-att .dz-figure-number {
+  color: var(--text-bright);
+  font-size: 28px;
+}
+
+html.dctzqsd-attendance .dz-att .dz-figure-label {
+  color: var(--text-dim);
+}
