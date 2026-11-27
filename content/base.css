@@ -144,6 +144,23 @@ html.dctzqsd {
   --color-text-danger: var(--accent);
   --color-text-danger-solid: var(--accent);
 
+  --color-bg-surface-accent-blue: var(--panel-bg);
+  --color-bg-surface-accent-green: var(--panel-bg);
+  --color-bg-surface-accent-purple: var(--panel-bg);
+  --color-bg-surface-accent-pink: var(--panel-bg);
+  --color-border-accent-blue: var(--link-border);
+  --color-border-accent-green: var(--link-border);
+  --color-border-accent-purple: var(--link-border);
+  --color-border-accent-pink: var(--text-dim);
+  --color-text-accent-blue: var(--text);
+  --color-text-accent-green: var(--text);
+  --color-text-accent-purple: var(--text);
+  --color-text-accent-pink: var(--text);
+  --color-icon-accent-blue: var(--text-dim);
+  --color-icon-accent-green: var(--text-dim);
+  --color-icon-accent-purple: var(--text-dim);
+  --color-icon-accent-pink: var(--text-dim);
+
   --border-radius-100: 0;
   --border-radius-200: 0;
   --border-radius-300: 0;

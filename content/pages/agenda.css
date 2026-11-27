@@ -85,6 +85,19 @@ html.dctzqsd-agenda .agenda-filter input[type="checkbox"] {
 }
 
 
+html.dctzqsd-agenda .agenda--day .lead {
+  background-color: var(--bg);
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: lowercase;
+}
+
+html.dctzqsd-agenda .agenda--day.is-today .lead {
+  background-color: var(--bg);
+  color: var(--accent);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html.dctzqsd-agenda .agenda-filter * {
     transition: none !important;
